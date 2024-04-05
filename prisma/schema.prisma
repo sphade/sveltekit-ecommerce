@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id                     String                 @id @default(uuid())
+  name                   String
+  priceInCents           Int
+  filePath               String
+  imagePath              String
+  description            String
+  isAvailableForPurchase Boolean                @default(true)
+  createdAt              DateTime               @default(now())
+  updatedAt              DateTime               @updatedAt
+  Order                  Order[]
+  DownloadVerification   DownloadVerification[]
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  Order        Order[]
+  sessions     Session[]
+  isAdmin      Boolean   @default(false)
+  username     String
+  hashPassword String
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model Order {
+  id               String  @id @default(uuid())
+  pricePaidInCents Int
+  userId           String
+  productId        String
+  user             User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product          Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DownloadVerification {
+  id        String   @id @default(uuid())
+  expiredAt DateTime
+  createdAt DateTime @default(now())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
