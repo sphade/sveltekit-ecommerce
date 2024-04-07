@@ -83,10 +83,10 @@
 								</form>
 								<DropdownMenu.Separator />
 								<form action="?/deleteProduct" use:enhance method="POST">
-									<button class=" w-full text-destructive">
-										<DropdownMenu.Item disabled={product._count.Order > 0} type="submit">
-											Delete
-										</DropdownMenu.Item>
+									<button class=" w-full text-destructive" disabled={product._count.Order > 0}>
+										<DropdownMenu.Item type="submit" disabled={product._count.Order > 0}
+											>Delete</DropdownMenu.Item
+										>
 									</button>
 									<input type="hidden" name="id" value={product.id} />
 								</form>

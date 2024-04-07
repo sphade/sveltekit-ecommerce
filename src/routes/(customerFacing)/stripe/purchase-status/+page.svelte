@@ -2,7 +2,6 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { formatCurrency } from '$lib/utils';
 	let { data } = $props();
-	console.log('🚀 ~ data:', data);
 </script>
 
 <div class="mx-auto w-full max-w-5xl space-y-8">

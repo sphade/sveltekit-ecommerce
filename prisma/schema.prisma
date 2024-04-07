@@ -33,7 +33,7 @@ model User {
   sessions     Session[]
   isAdmin      Boolean   @default(false)
   username     String
-  hashPassword String
+  hashPassword String?
 }
 
 model Session {

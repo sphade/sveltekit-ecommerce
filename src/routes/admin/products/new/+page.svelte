@@ -11,7 +11,7 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	let { data } = $props();
 	const form = superForm(data.form, {
-		validators: zodClient(addFormSchema.partial())
+		validators: zodClient(addFormSchema)
 	});
 
 	const { form: formData, enhance, delayed } = form;
@@ -43,7 +43,7 @@
 		<Form.FieldErrors />
 	</Form.Field>
 	<div class="text-muted-foreground">
-		{formatCurrency($formData.priceInCents)}
+		{formatCurrency($formData.priceInCents / 100)}
 	</div>
 	<Form.Field {form} name="description">
 		<Form.Control let:attrs>

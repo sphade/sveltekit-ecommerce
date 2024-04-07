@@ -10,8 +10,8 @@
 	import { Loader } from 'lucide-svelte';
 	import { goto } from '$app/navigation';
 	let { data } = $props();
-	let stripe: Stripe = $state();
-	let elements: StripeElements | undefined = $state(undefined);
+	let stripe: any = $state();
+	let elements: any = $state(undefined);
 	let isLoading = $state(false);
 	let errorMessage: string | undefined = $state(undefined);
 	let email: string | null = $state(null);
@@ -41,25 +41,27 @@
 			isLoading = false;
 			return;
 		}
-		stripe
-			.confirmPayment({
-				elements,
-				confirmParams: {
-					return_url: `${PUBLIC_SERVER_URL}/stripe/purchase-status`
-				}
-			})
-			.then(({ error }) => {
-				if (error) {
-					if (error.type === 'card_error' || error.type === 'validation_error') {
-						errorMessage = error?.message;
-					} else {
-						errorMessage = 'an unKnown error occurred';
+		if (stripe)
+			stripe
+				.confirmPayment({
+					elements,
+
+					confirmParams: {
+						return_url: `${PUBLIC_SERVER_URL}/stripe/purchase-status`
 					}
-				}
-			})
-			.finally(() => {
-				isLoading = false;
-			});
+				})
+				.then(({ error }) => {
+					if (error) {
+						if (error.type === 'card_error' || error.type === 'validation_error') {
+							errorMessage = error?.message;
+						} else {
+							errorMessage = 'an unKnown error occurred';
+						}
+					}
+				})
+				.finally(() => {
+					isLoading = false;
+				});
 
 		// log results, for debugging
 		// console.log({ result });

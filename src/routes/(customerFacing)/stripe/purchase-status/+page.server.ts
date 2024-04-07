@@ -4,6 +4,7 @@ import Stripe from 'stripe';
 import { db } from '../../../../hooks.server.js';
 
 const stripe = new Stripe(STRIPE_SECRETE_KEY);
+
 async function createDownloadVerification(productId: string) {
 	// date is the number of millisecond in one day
 	return (
@@ -12,6 +13,7 @@ async function createDownloadVerification(productId: string) {
 		})
 	).id;
 }
+
 export const load = async ({ url: { searchParams } }) => {
 	const payment_intent = searchParams.get('payment_intent') as string;
 	const paymentIntent = await stripe.paymentIntents.retrieve(payment_intent);
@@ -20,6 +22,7 @@ export const load = async ({ url: { searchParams } }) => {
 	const product = await db.product.findUnique({ where: { id: productId } });
 	if (product === null) error(404, 'not found');
 	const isSuccess = paymentIntent.status === 'succeeded';
+
 	return {
 		product,
 		isSuccess,

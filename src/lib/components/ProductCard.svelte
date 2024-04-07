@@ -15,7 +15,7 @@
 </script>
 
 <Card.Root class="flex flex-col overflow-hidden">
-	<img src={imagePath} class="aspect-video h-auto w-full" alt="" />
+	<img src={imagePath} class="aspect-video h-auto w-full object-cover" alt="" />
 	<Card.Header>
 		<Card.Title>{name}</Card.Title>
 		<Card.Description>{formatCurrency(priceInCents / 100)}</Card.Description>
