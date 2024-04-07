@@ -32,7 +32,7 @@ model User {
   Order        Order[]
   sessions     Session[]
   isAdmin      Boolean   @default(false)
-  username     String
+  username     String    @unique
   hashPassword String?
 }
 

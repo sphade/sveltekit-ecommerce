@@ -6,6 +6,6 @@
 	let { children }: NavType = $props();
 </script>
 
-<nav class="flex justify-center bg-primary px-4 text-primary-foreground">
+<nav class="flex items-center justify-center bg-primary px-4 text-primary-foreground">
 	{@render children()}
 </nav>

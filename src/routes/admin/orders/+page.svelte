@@ -6,10 +6,11 @@
 	import { MoreVertical } from 'lucide-svelte';
 	import { enhance } from '$app/forms';
 	let { data } = $props();
+	console.log('🚀 ~ data:', data);
 </script>
 
 <PageHeader>Sales</PageHeader>
-{#if data.orders.length === 0}
+{#if data.orders.length == 0}
 	<p>No sales found</p>
 {:else}
 	{@render orderTable()}

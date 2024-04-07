@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import Nav from '$lib/components/Nav.svelte';
 	import { cn } from '$lib/utils';
@@ -22,6 +23,10 @@
 	{@render navLink({ href: '/admin/products', text: 'products' })}
 	{@render navLink({ href: '/admin/users', text: 'Customers' })}
 	{@render navLink({ href: '/admin/orders', text: 'Sales' })}
+
+	<form method="post" class="ml-56" use:enhance action="/admin">
+		<button>Sign out</button>
+	</form>
 </Nav>
 <div class="container my-6">
 	{@render children()}
