@@ -7,7 +7,6 @@
 		body: string;
 	};
 	let { data } = $props();
-	console.log('🚀 ~ data:', data);
 	let { salesData, userData, productData } = $derived(data);
 </script>
 
